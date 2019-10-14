@@ -16,18 +16,18 @@ def block_conversions(all_blocks):
     process_rules(all_blocks, block_rules)
 
 
-def update_block_secondary_content(item):
-    if "secondary_content" in item:
-        for content in item["secondary_content"]:
+def update_block_secondary_content(block):
+    if "secondary_content" in block:
+        for content in block["secondary_content"]:
             rename_content_key(content)
 
             if content.get("title"):
                 del content["title"]
 
 
-def update_block_primary_content(item):
-    if "primary_content" in item:
-        for content in item["primary_content"]:
+def update_block_primary_content(block):
+    if "primary_content" in block:
+        for content in block["primary_content"]:
             if not content.get("title"):
                 content["title"] = "Title missing on migration"
             rename_content_key(content)
@@ -36,24 +36,27 @@ def update_block_primary_content(item):
                 del content["type"]
 
 
-def update_block_preview_content(item):
-    if "preview_content" in item:
-        rename_content_key(item["preview_content"])
+def update_block_preview_content(block):
+    if "preview_content" in block:
+        rename_content_key(block["preview_content"])
+        if 'questions' in block['preview_content']:
+            for question in block["preview_content"].get('questions'):
+                rename_content_key(question)
 
 
-def update_single_block_questions_key(item):
-    if "questions" in item:
-        if len(item["questions"]) == 1:
-            item["question"] = item["questions"][0]
-            del item["questions"]
+def update_single_block_questions_key(block):
+    if "questions" in block:
+        if len(block["questions"]) == 1:
+            block["question"] = block["questions"][0]
+            del block["questions"]
 
 
-def update_block_interstitial_content(item):
-    if "type" in item and item["type"] == "Interstitial" and item.get("description"):
+def update_block_interstitial_content(block):
+    if "type" in block and block["type"] == "Interstitial" and block.get("description"):
 
-        item["content"] = {
-            "contents": [{"description": item["description"]}],
-            "title": item["title"],
+        block["content"] = {
+            "contents": [{"description": block["description"]}],
+            "title": block["title"],
         }
-        del item["description"]
-        del item["title"]
+        del block["description"]
+        del block["title"]
