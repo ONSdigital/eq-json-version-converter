@@ -10,24 +10,22 @@ from app.helpers.parse_schema import QuestionnaireSchema
 
 
 class Converter:
-    def __init__(self, file_name):
-        with open('schemas/to_convert/' + file_name, encoding='utf8') as schema_data:
-            self.schema = load(schema_data)
-            self.file_name = file_name
 
-    def save_json(self):
-        with open('schemas/converted/' + self.file_name, 'w') as json_file:
+    def __call__(self, file_name):
+        with open('schemas/to_convert/' + file_name, encoding='utf8') as schema_data:
+            schema = load(schema_data)
+            file_name = file_name
+
+        questionnaire_schema = QuestionnaireSchema(schema)
+        general_conversions(questionnaire_schema.json)
+        group_conversions(questionnaire_schema.groups)
+        block_conversions(questionnaire_schema.blocks)
+        routing_conversions(questionnaire_schema)
+        question_conversions(questionnaire_schema.questions)
+        answer_conversions(questionnaire_schema.answers)
+
+        with open('schemas/converted/' + file_name, 'w') as json_file:
             dump(
-                self.schema, json_file, sort_keys=True, indent=4, separators=(',', ': ')
+                questionnaire_schema.json, json_file, sort_keys=True, indent=4, separators=(',', ': ')
             )
 
-    def convert_schema(self):
-
-        schema = QuestionnaireSchema(self.schema)
-
-        general_conversions(schema.json)
-        group_conversions(schema.groups)
-        block_conversions(schema.blocks)
-        routing_conversions(schema)
-        question_conversions(schema.questions)
-        answer_conversions(schema.answers)
