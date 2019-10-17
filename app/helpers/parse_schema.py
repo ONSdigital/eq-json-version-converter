@@ -43,18 +43,18 @@ class QuestionnaireSchema:
 
     def _parse_schema(self):
         self._sections_by_id = self._get_sections_by_id()
-        self._groups_by_id = get_nested_schema_objects(self._sections_by_id, "groups")
-        self._blocks_by_id = get_nested_schema_objects(self._groups_by_id, "blocks")
+        self._groups_by_id = get_nested_schema_objects(self._sections_by_id, 'groups')
+        self._blocks_by_id = get_nested_schema_objects(self._groups_by_id, 'blocks')
         self._questions_by_id = get_nested_schema_objects(
-            self._blocks_by_id, "questions"
+            self._blocks_by_id, 'questions'
         )
         self._answers_by_id = get_nested_schema_objects(
-            self._questions_by_id, "answers"
+            self._questions_by_id, 'answers'
         )
 
     def _get_sections_by_id(self):
         return OrderedDict(
-            (section["id"], section) for section in self.json.get("sections", [])
+            (section['id'], section) for section in self.json.get('sections', [])
         )
 
 
@@ -63,7 +63,7 @@ def get_nested_schema_objects(parent_object, list_key):
 
     for parent_id, child_object in parent_object.items():
         for child_list_object in child_object.get(list_key, []):
-            child_list_object["parent_id"] = parent_id
-            nested_objects[child_list_object["id"]] = child_list_object
+            child_list_object['parent_id'] = parent_id
+            nested_objects[child_list_object['id']] = child_list_object
 
     return nested_objects

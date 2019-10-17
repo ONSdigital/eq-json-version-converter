@@ -11,14 +11,14 @@ from app.helpers.parse_schema import QuestionnaireSchema
 
 class Converter:
     def __init__(self, file_name):
-        with open("schemas/to_convert/" + file_name, encoding="utf8") as schema_data:
+        with open('schemas/to_convert/' + file_name, encoding='utf8') as schema_data:
             self.schema = load(schema_data)
             self.file_name = file_name
 
     def save_json(self):
-        with open("schemas/converted/" + self.file_name, "w") as json_file:
+        with open('schemas/converted/' + self.file_name, 'w') as json_file:
             dump(
-                self.schema, json_file, sort_keys=True, indent=4, separators=(",", ": ")
+                self.schema, json_file, sort_keys=True, indent=4, separators=(',', ': ')
             )
 
     def convert_schema(self):

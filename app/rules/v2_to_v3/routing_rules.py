@@ -8,15 +8,12 @@ def routing_conversions(schema):
 
 def update_radio_question_condition_in_routing_rules(item, schema):
 
-    if "routing_rules" in item:
-        for rule in item["routing_rules"]:
-            whens = rule.get("goto").get("when")
-            if whens:
-                for when in whens:
-                    answer = schema.get_answer(when.get("id"))
-                    if (
-                            answer
-                            and answer.get("type") == "Radio"
-                            and when.get("condition") == "contains any"
-                    ):
-                        when["condition"] = "equals any"
+    for rule in item.get('routing_rules', []):
+        for when in rule.get('goto').get('when', []):
+            answer = schema.get_answer(when.get('id'))
+            if (
+                answer
+                and answer.get('type') == 'Radio'
+                and when.get('condition') == 'contains any'
+            ):
+                when['condition'] = 'equals any'
