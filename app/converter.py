@@ -10,11 +10,9 @@ from app.helpers.parse_schema import QuestionnaireSchema
 
 
 class Converter:
-
     def __call__(self, file_name):
         with open('schemas/to_convert/' + file_name, encoding='utf8') as schema_data:
             schema = load(schema_data)
-            file_name = file_name
 
         questionnaire_schema = QuestionnaireSchema(schema)
         general_conversions(questionnaire_schema.json)
@@ -26,6 +24,9 @@ class Converter:
 
         with open('schemas/converted/' + file_name, 'w') as json_file:
             dump(
-                questionnaire_schema.json, json_file, sort_keys=True, indent=4, separators=(',', ': ')
+                questionnaire_schema.json,
+                json_file,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
             )
-
