@@ -22,7 +22,7 @@ Put any v2 schema you want converted into the directory `schemas/to_convert`:
 make convert-schemas
 ```
 
-Results of the conversion will appear in schemas/converted
+Results of the conversion will appear in `schemas/converted`
 
 
 ## Testing against validator

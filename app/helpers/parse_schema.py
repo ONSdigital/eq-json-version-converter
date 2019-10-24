@@ -53,7 +53,7 @@ class QuestionnaireSchema:
         )
 
     def _get_sections_by_id(self):
-        return OrderedDict(
+        return dict(
             (section['id'], section) for section in self.json.get('sections', [])
         )
 

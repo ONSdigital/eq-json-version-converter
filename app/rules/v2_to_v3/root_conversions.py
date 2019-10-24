@@ -1,7 +1,7 @@
 from app.metadata_substitutions import metadata_substitutions
 
 
-def general_conversions(schema):
+def root_conversions(schema):
 
     general_rules = {
         'update_meta_data_from_validator_to_type': update_meta_data_from_validator_to_type,
