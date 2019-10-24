@@ -1,6 +1,3 @@
-from collections import OrderedDict
-
-
 class QuestionnaireSchema:
     def __init__(self, questionnaire_json):
         self.json = questionnaire_json
@@ -53,13 +50,13 @@ class QuestionnaireSchema:
         )
 
     def _get_sections_by_id(self):
-        return dict(
-            (section['id'], section) for section in self.json.get('sections', [])
-        )
+        return {
+            section['id']: section for section in self.json.get('sections', [])
+        }
 
 
 def get_nested_schema_objects(parent_object, list_key):
-    nested_objects = OrderedDict()
+    nested_objects = {}
 
     for parent_id, child_object in parent_object.items():
         for child_list_object in child_object.get(list_key, []):
