@@ -1,25 +1,25 @@
 # eq-json-version-converter
-This repository has been written to convert v2 Survey Runner JSON (https://github.com/ONSdigital/eq-survey-runner) to v3.
+This repository has been written to convert [Survey Runner](https://github.com/ONSdigital/eq-survey-runner) schemas from v2 to v3.
 
-N.B This was written for the e-commerce survey, so although it might convert some other v2 surveys they might not pass validation.
+
+N.B Only e-commerce surveys are currently supported. Other surveys may convert, but aren't guaranteed to be valid to the v3 specification.
 
 ## Setup
 
-This application uses pipenv, please follow the following steps.
+To install, run the following.
 
 ```
 pyenv install
 pip install --upgrade pip setuptools pipenv
 pipenv install --dev
-pipenv shell
 ```
 
 ## Running
 
-To use the application, first populate the directory  `schemas/to_convert` with your v2 Survey Runner JSON then run:
+Put any v2 schema you want converted into the directory `schemas/to_convert`:
 
 ```
-pipenv run python app.py
+make convert-schemas
 ```
 
 Results of the conversion will appear in schemas/converted
@@ -30,5 +30,5 @@ Results of the conversion will appear in schemas/converted
 If you want to test the results generated in the `schema/converted` folder against eq schema validator (https://github.com/ONSdigital/eq-schema-validator) use the following command
 
 ```
-pipenv run ./scripts/test_schemas_against_validator.sh
+make validate-schemas
 ```
