@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+name = "pypi"
+verify_ssl = true
+
+[dev-packages]
+"pep8" = "*"
+pylint = "*"
+pylint-mccabe = "*"
+pylint-quotes = "*"
+"flake8" = "*"
+"flake8-blind-except" = "*"
+"flake8-debugger" = "*"
+"flake8-mock" = "*"
+"flake8-print" = "*"
+"flake8-tuple" = "*"
+black = "==19.3b0"
+
+[requires]
+python_version = "3.7"
+
